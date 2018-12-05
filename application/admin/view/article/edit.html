@@ -1,0 +1,176 @@
+{extend name='common/request' /}
+{block name='css'}
+        <!-- Vendor CSS -->
+        <link href="/admin/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/nouislider/distribute/nouislider.min.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+        <link href="/admin/vendors/farbtastic/farbtastic.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/chosen/chosen.css" rel="stylesheet">
+        <link href="/admin/vendors/summernote/dist/summernote.css" rel="stylesheet">
+
+
+        <!-- CSS -->
+        <link href="/admin/css/app_1.min.css" rel="stylesheet">
+        <link href="/admin/css/app_2.min.css" rel="stylesheet">
+
+        <!-- Following CSS are used only for the Demp purposes thus you can remove this anytime. -->
+        <link href="/admin/css/demo.css" rel="stylesheet">
+{/block}
+{block name='text'}
+<div class="card">
+    <!-- <div class="card-header">
+        <h2><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">修改你的正文
+             </font></font><small><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">单个表单控件自动接收一些全局样式。</font><font style="vertical-align: inherit;">所有带有.form-control的文本“input”，“textarea”和“select”元素都设置为width：100％; </font><font style="vertical-align: inherit;">默认情况下。</font><font style="vertical-align: inherit;">在.form-group中包装标签和控件以获得最佳间距。
+            </font></font></small>
+        </h2>
+    </div> -->
+    <div class="card-body card-padding">
+        <form role="form">
+            <div class="form-group fg-line">
+                <label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分类</font></font></label>
+                <div class="select">
+                    <select class="form-control" id="class_id">
+                        <option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">选择一个选项</font></font></option>
+                        {foreach name='class' item='vo'}
+                        <option {if condition="$vo.id eq $data.class_id"}selected="selected"{/if} value="{$vo.id}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{$vo.name}</font></font></option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group fg-line">
+                <label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">标题</font></font></label>
+                <input type="text" class="form-control input-sm" id="title" placeholder="标题" value="{$data.title}">
+            </div>
+            <div class="form-group fg-line">
+                <label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">简介</font></font></label>
+                <input type="text" class="form-control input-sm" id="spec" placeholder="简介" value="{$data.spec}">
+            </div>
+            <div class="form-group fg-line">
+                <label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">封面图</font></font></label>
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" id="image">
+                        <img src="{$data.image}">
+                    </div>
+                    <div>
+                        <span class="btn btn-info btn-file waves-effect">
+                            <span class="fileinput-new">选择</span>
+                            <span class="fileinput-exists">图片</span>
+                            <input type="file" name="...">
+                        </span>
+                        <a href="form-components.html#" class="btn btn-danger fileinput-exists waves-effect" data-dismiss="fileinput">删除</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group fg-line">
+                <label for="exampleInputPassword1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">正文</font></font></label>
+                <div class="html-editor" style="height: 5000px">{$data.text}</div>
+            </div>
+
+            <button id="sub" type="button" class="btn btn-primary btn-sm m-t-10 waves-effect">
+                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提交</font></font>
+            </button>
+        </form>
+    </div>
+</div>
+<!-- <div class="card">
+    <br>
+    <br>
+    <div class="form-group fg-float">
+        <div class="fg-line">
+            <input type="text" class="form-control fg-input">
+            <label class="fg-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">输入默认值</font></font></label>
+        </div>
+    </div>
+    <input type="button" value="asdasdasd" id="in">
+</div> -->
+<script type="text/javascript">
+    function changeFrameHeight(){
+        var div = $('.card').css('height', document.documentElement.clientHeight);
+    }
+    window.onresize=function(){
+         changeFrameHeight();
+    }
+    $('#in').click(function(){
+        var test = $('.panel-body').html();
+        console.log(test);
+    })
+    function sub(){
+        alert();
+    }
+    $('#sub').click(function(){
+        var html = $('.panel-body').html();
+        var class_id = $('#class_id').val();
+        var spec = $('#spec').val();
+        var title = $('#title').val();
+        var image = $('#image').children(':last-child').attr('src');
+        $.ajax({
+            type: 'post',
+            url: '{:url("Article/edit")}',
+            data: {'title': title, 'text': html, 'class_id': class_id, 'image': image, 'art_id': '{$data.id}', 'spec': spec},
+            success: function(res){
+                if (res == 101) {
+                    swal('请选择分类');
+                    scrollTo(0,0);
+                    return false;
+                }
+                if (res == 102) {
+                    swal('请填写标题');
+                    return false;
+                }
+                if (res == 103) {
+                    swal('请填写简介');
+                    return false;
+                }
+                if (res == 104) {
+                    swal('请选择封面图');
+                    return false;
+                }
+                if (res == 105) {
+                    swal('服务器出错，稍后重试');
+                    return false;
+                }
+                if (res == 200) {
+                    window.location.href="{:url('Article/index')}";
+                }
+            }
+        })
+    })
+</script>
+{/block}
+{block name='js'}
+<!-- Javascript Libraries -->
+<script src="/admin/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/admin/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="/admin/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/admin/vendors/bower_components/Waves/dist/waves.min.js"></script>
+<script src="/admin/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+<script src="/admin/vendors/bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
+
+<script src="/admin/vendors/bower_components/moment/min/moment.min.js"></script>
+<script src="/admin/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+<script src="/admin/vendors/bower_components/nouislider/distribute/nouislider.min.js"></script>
+<script src="/admin/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/admin/vendors/bower_components/typeahead.js/dist/typeahead.bundle.min.js"></script>
+<script src="/admin/vendors/bower_components/dropzone/dist/min/dropzone.min.js"></script>
+<script src="/admin/vendors/summernote/dist/summernote-updated.min.js"></script>
+
+
+<!-- Placeholder for IE9 -->
+<!--[if IE 9 ]>
+    <script src="/admin/vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
+<![endif]-->
+
+<script src="/admin/vendors/bower_components/chosen/chosen.jquery.js"></script>
+<script src="/admin/vendors/bower_components/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script src="/admin/vendors/fileinput/fileinput.min.js"></script>
+<script src="/admin/vendors/farbtastic/farbtastic.min.js"></script>
+
+<script src="/admin/js/app.min.js"></script>
+
+{/block}

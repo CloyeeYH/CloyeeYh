@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta name="baidu-site-verification" content="YkaKdgk27E" />
+  <meta charset="utf-8" />
+  <title>Turbo-Blog</title>
+  <meta name="description" content="个人博客" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <link rel="stylesheet" id="crayon-css" href="/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min-ver=_2.7.2_beta.css" type="text/css" media="all" />
+  <link rel="stylesheet" id="crayon-theme-classic-css" href="/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic-ver=_2.7.2_beta.css" type="text/css" media="all" />
+  <link rel="stylesheet" id="crayon-font-monaco-css" href="/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco-ver=_2.7.2_beta.css" type="text/css" media="all" />
+  <link rel="stylesheet" id="qzhai-css" href="/wp-content/themes/No.7_qzhai/css/style-ver=4.4.16.css" type="text/css" media="all" />
+  <script type="text/javascript" src="/wp-content/themes/No.7_qzhai/js/jquery.min-ver=4.4.16.js"></script>
+  <script type="text/javascript" src="/vue.min.js"></script>
+  <style type="text/css">
+    @media(min-width:669px){
+      #op_hed{
+          position: fixed !important;
+      }
+    }
+  </style>
+  <!-- <script type="text/javascript" src="/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min-ver=_2.7.2_beta.js"></script> -->
+  <link rel="https://api.w.org/" href="/index-rest_route=-.json" />
+ </head>
+ <body class="uk-height-1-1">
+  <div id="main" class="wp uk-grid uk-grid-collapse" style="max-width:960px">
+   <div class="uk-width-small-1-1 uk-width-medium-1-4 uk-width-large-1-5 posr">
+    <div id="head" data-uk-sticky="{boundary: true,top:80}">
+     <div id="op_head">
+      <div class="uk-panel" id="op_hed" style="margin-left: -2%;">
+
+       <div class="tx">
+        <div class="avatar_">
+         <img src="/wp-content/uploads/2016/09/777775B55-4731-A28B-BBD86294D3FC.jpg" />
+        </div>
+       </div>
+       <h1 class="uk-panel-title"><a href="index.html">Turbo</a></h1>
+       <span>一条能写代码的咸鱼，call me 江小鱼</span>
+       <div class="my uk-grid-collapse uk-grid uk-grid-width-1-3">
+        <div>
+         <span>{$article}</span>
+         <span><i class="uk-icon-file-text"></i></span>
+         <a href="{:url('Index/lists')}" title="文章" data-uk-tooltip="{pos:'bottom'}"></a>
+        </div>
+        <div>
+         <span>{$class}</span>
+         <span><i class="uk-icon-folder"></i></span>
+         <a href="{:url('Index/classfiy')}" title="分类" data-uk-tooltip="{pos:'bottom'}"></a>
+        </div>
+        <div>
+         <span>0</span>
+         <span><i class="uk-icon-tags"></i></span>
+         <a href="javascript:;" title="标签" data-uk-tooltip="{pos:'bottom'}"></a>
+        </div>
+       </div>
+       <a onclick="ins()" href="javascript:;" class="s_s uk-navbar-toggle uk-hidden-large" data-uk-offcanvas=""></a>
+       <script type="text/javascript">
+         function ins(){
+            $('#nav-top').css('display', 'block')
+         }
+       </script>
+       <ul id="nav-top" class="nav uk-nav uk-hidden-small">
+        <li id="menu-item-14" class="{if condition="$controller eq 'Index'"}active{/if}"><a href="{:url('Index/index')}">首页</a></li>
+        <li id="menu-item-15" class="{if condition="$controller eq 'Infomation'"}active{/if}"><a href="{:url('Infomation/details')}">关于</a></li>
+        <li id="menu-item-314" class=""><a target="_blank" href="https://github.com/turbo-code">github</a></li>
+       </ul>
+       <form class="s uk-form uk-hidden-small" id="searchform" method="post" action="{:url('index/index')}?class_id={$Think.get.class_id}">
+        <input class="uk-width-1-1 " type="text" value="" name="s" id="s" placeholder="搜索" />
+       </form>
+      </div>
+     </div>
+     <!-- <div class="ft uk-hidden-small">
+      <p>Copyright &copy; 2014-2016 lxlxw All Right Reserved</p>
+     </div> -->
+    </div>
+   </div>
+   <div id="content" class="uk-width-small-1-1 uk-width-medium-3-4 uk-width-large-4-5 uk-grid uk-grid-collapse">
+    <div class="uk-width-1-1">
+        {block name="text"}{/block}
+    </div>
+   </div>
+   <a href="#" class="top" data-uk-smooth-scroll="" style="display:none"><i class="uk-icon-angle-up"></i></a>
+  </div>
+ </body>
+</html>

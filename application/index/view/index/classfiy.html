@@ -1,0 +1,12 @@
+{extend name='common/base'/}
+{block name='text'}
+<div id="index" class="bs uk-text-break">
+   <h1 class="h4" style="display: block;">分类存档</h1>
+   <div id="list" class="category" style="display: block;">
+    <p class="date"><strong>lxlxw</strong>目前共有分类：{$class} </p>
+    {foreach name='data' item='vo'}
+    <a href="{:url('Index/index')}?class_id={$vo.id}" title="" data-uk-tooltip="">{$vo.name} ({$vo.count})</a>
+    {/foreach}
+   </div>
+  </div>
+{/block}

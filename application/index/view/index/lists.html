@@ -1,0 +1,29 @@
+{extend name='common/base'/}
+{block name='text'}
+<script type='text/javascript' src='/wp-content/themes/No.7_qzhai/js/app-ver=4.4.16.js'></script>
+<div id="index" class="bs uk-text-break">
+   <h1 class="h4" style="display: block;">日志存档</h1>
+   <div id="list" style="display: block;">
+    <p class="date"><strong>lxlxw</strong>目前共有文章： {$article}篇 </p>
+    <div class="car-container car-collapse">
+     <ul id="car-list">
+        {foreach name='data' item='vo'}
+      <li>
+        <span class="car-yearmonth" data-uk-sticky="{boundary: true}">
+            + {$key} <span title="文章数量">(共{$vo.count}篇文章)</span>
+        </span>
+       <ul class="car-monthlisting" style="display: none;">
+        {foreach name='$vo.article' item='v'}
+        <li>
+            {$v.time}: <a target="_blank" href="{:url('Index/details')}?id={$v.id}">{$v.title}</a>
+            <span title="评论数量">({$v.count}条评论)</span>
+        </li>
+        {/foreach}
+       </ul>
+      </li>
+      {/foreach}
+     </ul>
+    </div>
+   </div>
+  </div>
+{/block}

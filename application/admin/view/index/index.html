@@ -1,0 +1,16 @@
+{extend name='common/base' /}
+{block name='text'}
+<section id="content" style="margin-top: 82px;">
+<iframe id="iframepage" src="{:url('Article/index')}" name='text' width="100%" scrolling='no' frameborder=0 onload="changeFrameHeight()" ></iframe>
+</section>
+<script type="text/javascript">
+    function changeFrameHeight(){
+        var ifm= document.getElementById("iframepage");
+        ifm.height=document.documentElement.clientHeight;
+        console.log(document.documentElement.clientHeight);
+    }
+    window.onresize=function(){
+         changeFrameHeight();
+    }
+</script>
+{/block}

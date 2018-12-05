@@ -1,0 +1,82 @@
+{extend name='common/request' /}
+{block name='text'}
+<div class="card">
+    <button onclick="add()" style="margin-left: 2%;height: 59px;width: 6%;" class="btn btn-primary btn-icon waves-effect waves-circle waves-float"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">添加</font></font></button>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr align="center">
+                <!-- <th>#</th> -->
+                <th>标题</th>
+                <th>封面图</th>
+                <th>评论数</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach name='data' item='vo'}
+            <tr>
+                <td>{$vo.title}</td>
+                <td>
+                    <a target="_blank" href="{$vo.image}">
+                        <img src="{$vo.image}" width="100px" height="100px">
+                    </a>
+                </td>
+                <td>{$vo.count}</td>
+                <td>{$vo.create_time}</td>
+                <td>
+                    <button class="btn btn-success waves-effect" onclick='edit("{$vo.id}")'>
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">修改</font></font>
+                    </button>
+                    <button class="btn btn-info waves-effect" onclick='modify("{$vo.id}")'>
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">详情</font></font>
+                    </button>
+                    <button class="btn btn-danger waves-effect" onclick='del("{$vo.id}")'>
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">删除</font></font>
+                    </button>
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+        {$data->render()}
+    </div>
+</div>
+<script type="text/javascript">
+    function edit(id){
+        window.location.href="{:url('Article/edit')}?id="+id;
+    }
+    function modify(id){
+        window.open("/index/index/details?id="+id);
+    }
+    function add(){
+        window.location.href="{:url('Article/adds')}";
+    }
+    function del(id){
+        swal({
+            title: "确定要删除吗？",
+            text: "即将删除此文章",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+        }).then(function(){
+            $.ajax({
+                type: 'post',
+                url: '{:url("Article/del")}',
+                data: {'id': id},
+                success: function(res){
+                    if (res == 200) {
+                        swal('服务器出错，稍后重试');
+                    }
+                    if (res == 200) {
+                        swal("Deleted!", "删除成功", "success");
+                        window.location.reload()
+                    }
+                }
+            })
+        });
+    }
+</script>
+{/block}

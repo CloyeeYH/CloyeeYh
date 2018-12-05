@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Material Admin</title>
+        {block name='css'}
+        <!-- Vendor CSS -->
+        <link href="/admin/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+        <link href="/admin/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+
+        <!-- CSS -->
+        <link href="/admin/css/app_1.min.css" rel="stylesheet">
+        <link href="/admin/css/app_2.min.css" rel="stylesheet">
+        {/block}
+    </head>
+    <body>
+        <header id="header" class="clearfix" data-ma-theme="blue">
+            <ul class="h-inner">
+                <li class="hi-trigger ma-trigger" data-ma-action="sidebar-open" data-ma-target="#sidebar">
+                    <div class="line-wrap">
+                        <div class="line top"></div>
+                        <div class="line center"></div>
+                        <div class="line bottom"></div>
+                    </div>
+                </li>
+
+                <li class="hi-logo hidden-xs">
+                    <a href="index.html">Material Admin</a>
+                </li>
+
+                <li class="pull-right">
+                    <ul class="hi-menu">
+
+                        <!-- <li data-ma-action="search-open">
+                            <a href=""><i class="him-icon zmdi zmdi-search"></i></a>
+                        </li> -->
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" href=""><i class="him-icon zmdi zmdi-more-vert"></i></a>
+                            <ul class="dropdown-menu dm-icon pull-right">
+                                <li class="skin-switch hidden-xs">
+                                    <span class="ss-skin bgm-lightblue" data-ma-action="change-skin" data-ma-skin="lightblue"></span>
+                                    <span class="ss-skin bgm-bluegray" data-ma-action="change-skin" data-ma-skin="bluegray"></span>
+                                    <span class="ss-skin bgm-cyan" data-ma-action="change-skin" data-ma-skin="cyan"></span>
+                                    <span class="ss-skin bgm-teal" data-ma-action="change-skin" data-ma-skin="teal"></span>
+                                    <span class="ss-skin bgm-orange" data-ma-action="change-skin" data-ma-skin="orange"></span>
+                                    <span class="ss-skin bgm-blue" data-ma-action="change-skin" data-sma-kin="blue"></span>
+                                </li>
+                                <li class="divider hidden-xs"></li>
+                                <li class="hidden-xs">
+                                    <a data-ma-action="fullscreen" href=""><i class="zmdi zmdi-fullscreen"></i> Toggle Fullscreen</a>
+                                </li>
+                                <li>
+                                    <a data-ma-action="clear-localstorage" href=""><i class="zmdi zmdi-delete"></i> Clear Local Storage</a>
+                                </li>
+                                <li>
+                                    <a href=""><i class="zmdi zmdi-face"></i> Privacy Settings</a>
+                                </li>
+                                <li>
+                                    <a href=""><i class="zmdi zmdi-settings"></i> Other Settings</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- <li class="hidden-xs ma-trigger" data-ma-action="sidebar-open" data-ma-target="#chat">
+                            <a href=""><i class="him-icon zmdi zmdi-comment-alt-text"></i></a>
+                        </li> -->
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Top Search Content -->
+            <div class="h-search-wrap">
+                <div class="hsw-inner">
+                    <i class="hsw-close zmdi zmdi-arrow-left" data-ma-action="search-close"></i>
+                    <input type="text">
+                </div>
+            </div>
+        </header>
+
+        <section id="main" style="padding-bottom: 0px; padding-top: 0px">
+            <aside id="sidebar" class="sidebar c-overflow">
+                <div class="s-profile">
+                    <a href="" data-ma-action="profile-menu-toggle">
+                        <div class="sp-pic">
+                            <img src="/admin/img/demo/profile-pics/1.jpg" alt="">
+                        </div>
+                        <div class="sp-info">
+                            {$Think.session.user}
+                            <i class="zmdi zmdi-caret-down"></i>
+                        </div>
+                    </a>
+
+                    <ul class="main-menu">
+                        <!-- <li>
+                            <a href="profile-about.html"><i class="zmdi zmdi-account"></i> View Profile</a>
+                        </li>
+                        <li>
+                            <a href=""><i class="zmdi zmdi-input-antenna"></i> Privacy Settings</a>
+                        </li> -->
+                        <li>
+                            <a href=""><i class="zmdi zmdi-settings"></i> 设置</a>
+                        </li>
+                        <li>
+                            <a href="{:url('Index/chanl')}"><i class="zmdi zmdi-time-restore"></i> 注销</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <ul class="main-menu">
+                    <!-- <li class="clic">
+                        <a href="{:url('Index/index')}"  target="text"><i class="zmdi zmdi-home"></i> Home</a>
+                    </li> -->
+                    <li class="clic">
+                        <a href="{:url('Article/index')}" target="text"><i class="zmdi zmdi-view-subtitles"></i> 文章</a>
+                    </li>
+                    <li class="clic">
+                        <a href="{:url('User/index')}" target="text"><i class="zmdi zmdi-assignment-account"></i> 注册用户</a>
+                    </li>
+                    <li class="clic">
+                        <a href="{:url('Classfiy/index')}" target="text"><i class="zmdi zmdi-assignment-account"></i> 分类</a>
+                    </li>
+                    <!-- <li class="clic">
+                        <a href="{:url('Comments/index')}" target="text"><i class="zmdi zmdi-comment-more"></i> 评论</a>
+                    </li> -->
+                </ul>
+            </aside>
+
+            <aside id="chat" class="sidebar">
+
+                <div class="chat-search">
+                    <div class="fg-line">
+                        <input type="text" class="form-control" placeholder="Search People">
+                        <i class="zmdi zmdi-search"></i>
+                    </div>
+                </div>
+
+                <!-- <div class="lg-body c-overflow">
+                    <div class="list-group">
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left p-relative">
+                                <img class="lgi-img" src="/admin/img/demo/profile-pics/2.jpg" alt="">
+                                <i class="chat-status-busy"></i>
+                            </div>
+                            <div class="media-body">
+                                <div class="lgi-heading">Jonathan Morris</div>
+                                <small class="lgi-text">Available</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <img class="lgi-img" src="/admin/img/demo/profile-pics/1.jpg" alt="">
+                            </div>
+                            <div class="media-body">
+                                <div class="lgi-heading">David Belle</div>
+                                <small class="lgi-text">Last seen 3 hours ago</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left p-relative">
+                                <img class="lgi-img" src="/admin/img/demo/profile-pics/3.jpg" alt="">
+                                <i class="chat-status-online"></i>
+                            </div>
+                            <div class="media-body">
+                                <div class="lgi-heading">Fredric Mitchell Jr.</div>
+                                <small class="lgi-text">Availble</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left p-relative">
+                                <img class="lgi-img" src="/admin/img/demo/profile-pics/4.jpg" alt="">
+                                <i class="chat-status-online"></i>
+                            </div>
+                            <div class="media-body">
+                                <div class="lgi-heading">Glenn Jecobs</div>
+                                <small class="lgi-text">Availble</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <img class="lgi-img" src="/admin/img/demo/profile-pics/5.jpg" alt="">
+                            </div>
+                            <div class="media-body">
+                                <div class="lgi-heading">Bill Phillips</div>
+                                <small class="lgi-text">Last seen 3 days ago</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <img class="lgi-img" src="/admin/img/demo/profile-pics/6.jpg" alt="">
+                            </div>
+                            <div class="media-body">
+                                <div class="lgi-heading">Wendy Mitchell</div>
+                                <small class="lgi-text">Last seen 2 minutes ago</small>
+                            </div>
+                        </a>
+                    </div>
+                </div> -->
+            </aside>
+                {block name='text'}{/block}
+        </section>
+
+        <!-- Page Loader -->
+        {block name='js'}
+        <!-- Javascript Libraries -->
+        <script src="/admin/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/admin/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <script src="/admin/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="/admin/vendors/bower_components/Waves/dist/waves.min.js"></script>
+        <script src="/admin/vendors/bower_components/flot/jquery.flot.js"></script>
+        <script src="/admin/vendors/bower_components/flot/jquery.flot.resize.js"></script>
+        <script src="/admin/vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
+        <script src="/admin/vendors/sparklines/jquery.sparkline.min.js"></script>
+        <script src="/admin/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+
+        <script src="/admin/vendors/bower_components/moment/min/moment.min.js"></script>
+        <script src="/admin/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+        <script src="/admin/vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js"></script>
+        <script src="/admin/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+        <script src="/admin/vendors/bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
+
+        <!-- Placeholder for IE9 -->
+        <!--[if IE 9 ]>
+            <script src="/admin/vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
+        <![endif]-->
+
+        <script src="/admin/vendors/bower_components/chosen/chosen.jquery.js"></script>
+        <script src="/admin/vendors/bower_components/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+        <script src="/admin/vendors/fileinput/fileinput.min.js"></script>
+        <script src="/admin/vendors/farbtastic/farbtastic.min.js"></script>
+
+        <script src="/admin/js/app.min.js"></script>
+        {/block}
+    </body>
+
+    <script type="text/javascript">
+        $('.clic').click(function(){
+            $('.main-menu').children().attr('class', 'clic');
+            $(this).attr('class', 'clic active');
+        })
+    </script>
+  </html>

@@ -1,0 +1,31 @@
+{extend name="common/base" /}
+{block name='text'}
+<div id="index" class="bs uk-text-break">
+   <h4>{$class_name}</h4>
+   <div id="list">
+    {foreach name='list' item='vo'}
+    <article class="article">
+     <h1><a href="{:url('Index/details')}?id={$vo.id}">{$vo.title}</a></h1>
+     <p>
+      <a href="{:url('Index/details')}?id={$vo.id}">
+        <img src="{$vo.image}">
+      </a>
+      {$vo.spec}
+      <time><br />{$vo.create_time}</time>
+     </p>
+    </article>
+    {/foreach}
+   </div>
+  </div>
+  <!-- <ul class="uk-pagination">
+   <li class="uk-active"><span>1</span></li>
+   <li><a href="index-paged=2.html">2</a></li>
+   <li><a href="index-paged=3.html">3</a></li>
+   <li><a href="index-paged=4.html">4</a></li>
+   <li><a href="index-paged=2.html">&raquo;</a></li>
+  </ul> -->
+{$list->render()}
+  <div class="ft uk-visible-small">
+   <p>Copyright &copy; 2014-2016 turbo All Right Reserved</p>
+  </div>
+{/block}

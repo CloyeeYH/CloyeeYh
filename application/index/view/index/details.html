@@ -1,0 +1,163 @@
+{extend name="common/base" /}
+{block name='text'}
+<div id='index' class="bs uk-text-break">
+    <article id="article" class="uk-article">
+        {$data.text}
+    </article>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    {if condition='$next neq 0'}
+    下一篇：<a href="{:url('Index/details')}?id={$next.id}" rel="prev">{$next.title}</a>
+    {/if}
+    {if condition='$next eq 0'}
+    下一篇：<a href="javascript:;" rel="prev">无</a>
+    {/if}
+    <div id="qzhai_comments" style="display: block;">
+       <h4>评论</h4>
+       {if condition = "$comments eq 0"}
+       <div class="uk-alert">
+        <p>还没有任何评论，你来说两句吧</p>
+       </div>
+       {/if}
+       {if condition = "$comments neq 0"}
+        <ul id="comments" class="uk-comment-list">
+            {foreach name='comments' item="vo"}
+           <li>
+            <article class="uk-comment">
+             <img alt="" src="{$vo.avatar}" class="avatar avatar-50 photo" height="50" width="50" />
+             <h6 class="uk-comment-title uk-clearfix"><cite>{$vo.name}</cite>
+                <time>{$vo.create_time}</time>
+                <span class="uk-comment-meta uk-float-right" style="display: none">
+                    <a rel="nofollow" class="comment-reply-link" href="javascript:;" onclick="reply('{$vo.name}', '{$vo.id}')">回复 </a>
+                </span>
+            </h6>
+            {if condition = '$vo.content.at eq "0"'}
+             <p>{$vo.content.text}</p>
+             {else/}
+             <p>
+                <span style="color: #1685a9">{$vo.content.at}：</span>
+                 {$vo.content.text}
+            </p>
+            {/if}
+
+            </article>
+            </li>
+            {if condition = '$vo.son neq 0'}
+            <ul class="children">
+            {foreach name='$vo.son' item='v'}
+                <li>
+                    <article class="uk-comment">
+                     <img alt="" src="{$v.avatar}" class="avatar avatar-50 photo" height="50" width="50" />
+                     <h6 class="uk-comment-title uk-clearfix"><cite>{$v.name}</cite>
+                        <time>{$v.create_time}</time>
+                        <span class="uk-comment-meta uk-float-right" style="display: none">
+                            <a rel="nofollow" class="comment-reply-link" href="javascript:;"  onclick="reply('{$v.name}', '{$v.id}')">回复 </a>
+                        </span>
+                    </h6>
+                     {if condition = '$v.content.at eq "0"'}
+                     <p>{$v.content.text}</p>
+                     {else/}
+                     <p>
+                        <span style="color: #1685a9">{$v.content.at}：</span>
+                         {$v.content.text}
+                    </p>
+                    {/if}
+                    </article>
+                </li>
+            {/foreach}
+            </ul>
+            {/if}
+            {/foreach}
+           <!-- #comment-## -->
+          </ul>
+        {/if}
+       <div id="respond" class="comment_form" role="form">
+        <h2 id="reply-title" class="comments-title">发表评论</h2>
+        <form action="http://www.lxlxw.me/wp-comments-post.php" method="post" class="uk-form" id="commentform">
+         <div class="textarea_qzhai">
+          <textarea id="comment" placeholder="内容..." tabindex="1" name="comment"></textarea>
+         </div>
+         <div class="text uk-grid uk-grid-small">
+          <div class="uk-width-medium-1-4 uk-form-icon">
+           <i class="uk-icon-user"></i>
+           <input id="author" type="text" tabindex="2" value="" name="author" placeholder="昵称*" class="uk-width-1-1" />
+          </div>
+          <div class=" uk-width-medium-1-4 uk-form-icon">
+           <i class="uk-icon-envelope"></i>
+           <input id="email" type="text" tabindex="3" value="" name="email" placeholder="邮箱*" class="uk-width-1-1" />
+          </div>
+          <div class="uk-width-medium-1-4 uk-form-icon">
+           <i class="uk-icon-laptop"></i>
+           <input id="url" type="text" tabindex="4" value="" name="url" placeholder="网址" class="uk-width-1-1" />
+          </div>
+          <div class="uk-width-medium-1-4">
+           <button name="submit" type="button" id="submit" class="uk-button uk-width-1-1" tabindex="5">回复</button>
+          </div>
+         </div>
+         <div class="uk-margin-small-top"></div>
+         <input type="hidden" name="comment_post_ID" value="455" id="comment_post_ID" />
+         <input type="hidden" name="comment_parent" id="comment_parent" value="0" />
+        </form>
+       </div>
+       <!-- Comment Form -->
+      </div>
+      <input type="hidden" id="reply_id" value=''>
+  </div>
+  <script type="text/javascript">
+    $('.uk-clearfix').mouseover(function(){
+        $(this).children(':last-child').css('display', 'block');
+    })
+    $('.uk-clearfix').mouseout(function(){
+        $(this).children(':last-child').css('display', 'none');
+    })
+    function reply($name, $id){
+        $('#reply-title').empty();
+        $('#reply-title').append('回复给 <a href="javascript:;">'+$name+'</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="javascript:;">点击这里取消回复。</a></small>')
+        $('#reply_id').val($id);
+        window.scrollTo(0, document.documentElement.clientHeight);
+        $('#cancel-comment-reply-link').click(function(){
+            $('#reply-title').empty();
+            $('#reply-title').append('发表评论')
+            $('#reply_id').val(0);
+        })
+    }
+    $('#submit').click(function(){
+        var author = $('#author').val();
+        var email = $('#email').val();
+        var url = $('#url').val();
+        var comment = $('#comment').val();
+        var reply_id = $('#reply_id').val();
+        $.ajax({
+            type: 'post',
+            url: '{:url("Index/adds")}?article_id={$Think.get.id}',
+            data: {'name': author, 'email': email, 'url': url, 'content': comment, 'p_id': reply_id},
+            success: function(res){
+                if (res == 106) {
+                  alert('不准用博主的名字，你个蛇皮怪');
+                }
+                if (res == 101) {
+                    alert('请填写你的名字');
+                }
+                if (res == 102) {
+                    alert('请填写你的邮箱')
+                }
+                if (res == 103) {
+                    alert('请填写正文')
+                }
+                if (res == 104) {
+                    alert('该名称已填写，或邮箱填写错误')
+                }
+                if (res == 107) {
+                    alert('您输入的名称已被冻结')
+                }
+                if (res == 105) {
+                    alert('服务器出错，稍后重试')
+                }
+                if (res == 200) {
+                    window.location.reload()
+                }
+            }
+        })
+    })
+  </script>
+{/block}
